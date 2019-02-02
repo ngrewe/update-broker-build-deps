@@ -1,9 +1,10 @@
 FROM ubuntu:{{ubuntu_release}}
-RUN apt-get update && apt-get install -qy --no-install-recommends libsystemd-dev libdbus-1-dev sudo curl ca-certificates build-essential
 ENV RUSTUP_HOME=/opt/rustup \
     CARGO_HOME=/opt/rustup
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable && \
-    echo "source /opt/rustup/env" >> /etc/bash.bashrc
-RUN . /opt/rustup/env && cargo install cargo-deb && \
-    useradd -m -u 1001 vsts_azpcontainer && \
-    chgrp -R vsts_azpcontainer /opt/rustup
+RUN apt-get update && apt-get install -qy --no-install-recommends libsystemd-dev libdbus-1-dev sudo curl ca-certificates build-essential && \
+  useradd -m -u 1001 vsts_azpcontainer && \
+  install -o vsts_azpcontainer -g vsts_azpcontainer -d ${CARGO_HOME} && \
+  echo "test -f ${CARGO_HOME}/env && source ${CARGO_HOME}/env" >> /etc/bash.bashrc
+USER vsts_azpcontainer
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+RUN . ${CARGO_HOME}/env && cargo install cargo-deb
