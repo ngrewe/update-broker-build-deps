@@ -1,0 +1,9 @@
+FROM ubuntu:{{ubuntu_release}}
+RUN apt-get update && apt-get install -qy --no-install-recommends libsystemd-dev libdbus-1-dev sudo curl ca-certificates build-essential
+ENV RUSTUP_HOME=/opt/rustup \
+    CARGO_HOME=/opt/rustup
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable && \
+    echo "source /opt/rustup/env" >> /etc/bash.bashrc 
+RUN . /opt/rustup/env && cargo install cargo-deb && \
+    rm -rf /opt/rustup/registry/*
+ 
