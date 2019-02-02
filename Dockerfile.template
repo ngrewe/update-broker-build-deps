@@ -4,4 +4,4 @@ ENV RUSTUP_HOME=/opt/rustup \
     CARGO_HOME=/opt/rustup
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable && \
     echo "source /opt/rustup/env" >> /etc/bash.bashrc 
-RUN . /opt/rustup/env && cargo install cargo-deb
+RUN . /opt/rustup/env && sudo -E cargo install cargo-deb
