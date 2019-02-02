@@ -13,5 +13,11 @@ jobs:
   steps:
     - script: sed 's/{{ubuntu_release}}/$(ubuntuRelease)/g' Dockerfile.template > Dockerfile
       displayName: Render Dockerfile
-    - script: docker build . -t $(imageName):$(ubuntuRelease)
+    - task: Docker@1
       displayName: Build image
+      inputs:
+        command: build
+        containerregistrytype: Container Registry
+        dockerRegistryEndpoint: glaux-registry
+        dockerFile: Dockerfile
+        imageName: $(imageName):$(ubuntuRelease)
