@@ -9,7 +9,7 @@ jobs:
       xenial:
         ubuntuRelease: '16.04'
       bionic:
-        ubunutVersion: '18.04'
+        ubuntuRelease: '18.04'
   steps:
     - script: sed 's/{{ubuntu_release}}/$(ubuntuRelease)/g' Dockerfile.template > Dockerfile
       displayName: Render Dockerfile
