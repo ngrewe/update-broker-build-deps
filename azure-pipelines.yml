@@ -21,3 +21,10 @@ jobs:
         dockerRegistryEndpoint: glaux-registry
         dockerFile: Dockerfile
         imageName: $(imageName):$(ubuntuRelease)
+    - task: Docker@1
+      displayName: Push image
+      inputs:
+        command: push
+        containerregistrytype: Container Registry
+        dockerRegistryEndpoint: glaux-registry
+        imageName: $(imageName):$(ubuntuRelease)
