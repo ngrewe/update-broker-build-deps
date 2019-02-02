@@ -7,11 +7,11 @@ jobs:
   strategy:
     matrix:
       xenial:
-        ubuntuVersion: '16.04'
+        ubuntuRelease: '16.04'
       bionic:
         ubunutVersion: '18.04'
   steps:
-    - script: sed 's/{{ubuntu_version}}/$(ubuntuVersion)/g' Dockerfile.template > Dockerfile
+    - script: sed 's/{{ubuntu_release}}/$(ubuntuRelease)/g' Dockerfile.template > Dockerfile
       displayName: Render Dockerfile
-    - script: docker build . -t $(imageName):$(ubuntuVersion)
+    - script: docker build . -t $(imageName):$(ubuntuRelease)
       displayName: Build image
