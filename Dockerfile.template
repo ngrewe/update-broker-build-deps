@@ -3,7 +3,7 @@ RUN apt-get update && apt-get install -qy --no-install-recommends libsystemd-dev
 ENV RUSTUP_HOME=/opt/rustup \
     CARGO_HOME=/opt/rustup
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable && \
-    echo "source /opt/rustup/env" >> /etc/bash.bashrc && \
+    echo "source /opt/rustup/env" >> /etc/bash.bashrc
+RUN . /opt/rustup/env && cargo install cargo-deb && \
     useradd -m -u 1001 vsts_azpcontainer && \
     chgrp -R vsts_azpcontainer /opt/rustup
-RUN . /opt/rustup/env && cargo install cargo-deb
